@@ -14,11 +14,15 @@
   },
   "scripts": {
     "start": "electron .",
+    "rebuild": "electron-rebuild --runtime=electron --target=1.1.3 --disturl=https://atom.io/download/atom-shell --abi=48",
     "pack": "build --dir --win --linux "
   },
   "devDependencies": {
     "electron": "^1.6.2",
     "electron-builder": "^16.7.1",
     "electron-rebuild": "^1.5.7"
+  },
+  "dependencies": {
+    "robotjs": "^0.4.7"
   }
 }

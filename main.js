@@ -1,6 +1,7 @@
 const app = require('electron').app;
 
-const {Tray, Menu} = require('electron');
+const {Tray, Menu, globalShortcut} = require('electron');
+const robot = require('robotjs');
 
 
 /**
@@ -46,5 +47,11 @@ function start() {
   //
   // })
 
+
+  // register global shorcut demo
+  globalShortcut.register('ctrl+shift+g', () =>{
+    // output some text
+    console.log("well fuck you!");
+  });
 
 }
