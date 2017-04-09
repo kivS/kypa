@@ -1,0 +1,24 @@
+{
+  "name": "kypa",
+  "productName": "Kypa",
+  "version": "0.0.1",
+  "description": "Map key shorcuts to characters, images and more",
+  "main": "main.js",
+  "repository": "https://github.com/kivS/kypa.git",
+  "author": "Vik Borges <v1k@protonmail.com>",
+  "license": "MIT",
+  "build": {
+    "npmSkipBuildFromSource": true,
+    "appId": "com.vikborges.kypa",
+    "win": {}
+  },
+  "scripts": {
+    "start": "electron .",
+    "pack": "build --dir --win --linux "
+  },
+  "devDependencies": {
+    "electron": "^1.6.2",
+    "electron-builder": "^16.7.1",
+    "electron-rebuild": "^1.5.7"
+  }
+}
