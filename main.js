@@ -2,7 +2,6 @@ const app = require('electron').app;
 
 const {Tray, Menu, BrowserWindow, globalShortcut, ipcMain, clipboard } = require('electron');
 const robot = require('robotjs');
-
 let mainWindow;
 
 
@@ -16,6 +15,9 @@ app.on('window-all-closed', () =>{
 });
 
 app.on('will-quit', () =>{
+
+  mainWindow = null;
+
   // Unregister all shortcuts.
   globalShortcut.unregisterAll();
 });
@@ -65,7 +67,7 @@ function start() {
 
   // mainWindow Events
   mainWindow.on('closed', () =>{
-    mainWindow = null;
+    return;
   })
 
   // Listen for commands from shortcuts_page
