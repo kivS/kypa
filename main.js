@@ -39,7 +39,7 @@ function start() {
     {
       label: 'Open',
       click: () => {
-        return;
+        mainWindow.show();
       }
     },
     {
@@ -47,16 +47,26 @@ function start() {
     },
     {
       label: 'Exit',
-      role: 'quit'
+      click: () =>{
+        mainWindow.destroy();
+        app.quit();
+      }
     }
   ]);
   // set menu
   trayIcon.setContextMenu(contextMenu);
 
+  // handle click on tray icon
+  trayIcon.on('click', () => {
+    mainWindow.show();
+  })
+
   // Create mainWindow
   mainWindow = new BrowserWindow({
-    width: 600,
-    height: 600
+    width:            600,
+    height:           600,
+    show:             false,
+
   });
 
   // load mainWindow
@@ -66,9 +76,16 @@ function start() {
   mainWindow.webContents.openDevTools();
 
   // mainWindow Events
-  mainWindow.on('closed', () =>{
-    return;
+  mainWindow.on('close', (e) =>{
+    e.preventDefault();
+    mainWindow.hide();
   })
+
+
+
+  /**
+   *  Main & Redender processes communication
+   */
 
   // Listen for commands from shortcuts_page
   ipcMain.on('register_shortcut', (e, shortcut, text) =>{
