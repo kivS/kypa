@@ -142,7 +142,7 @@ function start() {
 
     }else{
       // send error response back
-      e_shortcut.returnValue = {success: false, msg: 'Shortcut not allowed!'};
+      e_shortcut.returnValue = {success: false, msg: 'Shortcut not allowed. Already in use!'};
 
     }
 
