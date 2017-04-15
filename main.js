@@ -1,15 +1,24 @@
 const app = require('electron').app;
+let mainWindow;
+
+// allow only one instance of the Program
+const shouldQuit = app.makeSingleInstance(() =>{
+  if(mainWindow) mainWindow.show();
+})
+if(shouldQuit) app.exit();
 
 const {Tray, Menu, BrowserWindow, globalShortcut, ipcMain, clipboard } = require('electron');
 const robot = require('robotjs');
 const path = require('path');
+
+
 
 // define db's path
 const db_location = path.join(app.getPath('userData'), 'db.json');
 // start persistent db with location
 const db  = require('./resources/helpers/db')(db_location);
 
-let mainWindow;
+
 
 
 /**
