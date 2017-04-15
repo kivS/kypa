@@ -15,7 +15,7 @@ app.on('window-all-closed', () =>{
 });
 
 app.on('will-quit', () =>{
-
+  
   mainWindow = null;
 
   // Unregister all shortcuts.
@@ -53,6 +53,7 @@ function start() {
       }
     }
   ]);
+
   // set menu
   trayIcon.setContextMenu(contextMenu);
 

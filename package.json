@@ -23,6 +23,7 @@
     "electron-rebuild": "^1.5.7"
   },
   "dependencies": {
+    "lowdb": "^0.16.2",
     "robotjs": "^0.4.7"
   }
 }
