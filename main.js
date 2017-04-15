@@ -2,7 +2,13 @@ const app = require('electron').app;
 
 const {Tray, Menu, BrowserWindow, globalShortcut, ipcMain, clipboard } = require('electron');
 const robot = require('robotjs');
-const db  = require('./resources/helpers/db')('test_db.json');
+const path = require('path');
+
+// define db's path
+const db_location = path.join(app.getPath('userData'), 'db.json');
+// start persistent db with location
+const db  = require('./resources/helpers/db')(db_location);
+
 let mainWindow;
 
 
