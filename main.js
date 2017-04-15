@@ -103,20 +103,42 @@ function start() {
    */
 
   // Listen for commands from shortcuts_page
-  ipcMain.on('register_shortcut', (e, shortcut, text) =>{
+  ipcMain.on('register_shortcut', (e_shortcut, shortcut, text) =>{
 
-    // save to db
-    const save_shorcut = db.get('bindings').push({
-      "time_added": (new Date().getTime() / 1000),
-      "shortcut": shortcut,
-      "text": text,
-      "type": "text"
-    }).write();
+    let addGlobalShortcut_result = null;
 
-    console.log('save shorcut to db: ', save_shorcut);
+    try {
+      // add global shortcut
+      addGlobalShortcut_result = addGlobalShortcut(shortcut, text);
 
-    // add global shortcut
-    addGlobalShortcut(shortcut, text);
+    } catch (e) {
+      console.error('hell shit..', e);
+      // send error response back
+      e_shortcut.returnValue = {success: false, msg: 'Invalid shortcut!'};
+
+    }
+
+    console.log('register global shortcut result: ', addGlobalShortcut_result);
+
+    if(addGlobalShortcut_result){
+      // send success response
+      e_shortcut.returnValue = {success: true};
+
+      // save to db
+      const save_shorcut = db.get('bindings').push({
+        "time_added": (new Date().getTime() / 1000),
+        "shortcut": shortcut,
+        "text": text,
+        "type": "text"
+      }).write();
+
+      console.log('saved shorcut to db!');
+
+    }else{
+      // send error response back
+      e_shortcut.returnValue = {success: false, msg: 'Shortcut not allowed!'};
+
+    }
 
   });
 
@@ -143,15 +165,15 @@ function start() {
  */
 function addGlobalShortcut(shortcut, text){
     // Register shorcut
-    globalShortcut.register(shortcut, () =>{
+  return globalShortcut.register(shortcut, () =>{
 
-    // set clipboard to text
-    clipboard.writeText(text);
+      // set clipboard to text
+      clipboard.writeText(text);
 
-    // send paste command
-    setTimeout(() => {
-       robot.keyTap('v', 'control');
-    }, 265);
+      // send paste command
+      setTimeout(() => {
+         robot.keyTap('v', 'control');
+      }, 265);
 
-  });
+    });
 }

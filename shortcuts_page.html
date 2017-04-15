@@ -10,6 +10,7 @@
   </body>
   <script>
     const {ipcRenderer} = require('electron');
+
     // on save shorcut
     document.getElementById('btnSave').addEventListener('click', e =>{
       let shortcut_field = document.getElementById('shortcut');
@@ -19,7 +20,8 @@
       console.log('text: ', text_field.value);
 
       // register shorcut
-      ipcRenderer.send('register_shortcut', shortcut_field.value, text_field.value);
+      const register_shortcut = ipcRenderer.sendSync('register_shortcut', shortcut_field.value, text_field.value);
+      console.log('result: ', register_shortcut);
 
     });
 
