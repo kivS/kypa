@@ -99,14 +99,27 @@ function start() {
 
   });
 
-  // load mainWindow
-  mainWindow.loadURL(`file://${__dirname}/shortcuts_page.html`);
 
-  // load DevTools
-  mainWindow.webContents.openDevTools();
+  // Set dev envs and load mainWindow
+  if(process.env.DEV){
+
+     mainWindow.loadURL('http://localhost:3000'); 
+
+      // load DevTools
+     mainWindow.webContents.openDevTools();
+
+  }else{
+    mainWindow.loadURL(`file://${__dirname}/build/index.html`);
+  } 
+
+
+ 
 
   // mainWindow Events
   mainWindow.on('close', (e) =>{
+    // make app close if in dev mode
+    if(process.env.DEV) return 1;
+
     e.preventDefault();
     mainWindow.hide();
   })
