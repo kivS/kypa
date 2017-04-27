@@ -14,7 +14,6 @@
     "directories": {
       "buildResources": "public"
     }
-    
   },
   "homepage": "./",
   "scripts": {
@@ -22,7 +21,7 @@
     "electron": "DEV=true electron .",
     "rebuild": "electron-rebuild --runtime=electron --target=1.1.3 --disturl=https://atom.io/download/atom-shell --abi=48",
     "pack": "yarn run r-build && DEV=true build --dir --win --linux && yarn run fix-header",
-     "postinstall": "install-app-deps",
+    "postinstall": "install-app-deps",
     "fix-header": "npm rebuild && yarn run rebuild",
     "r-start": "BROWSER=none react-scripts start",
     "r-build": "react-scripts build",
@@ -37,6 +36,8 @@
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-scripts": "0.9.5",
+    "semantic-ui-css": "^2.2.10",
+    "semantic-ui-react": "^0.68.2",
     "wait-on": "^2.0.2"
   },
   "dependencies": {
