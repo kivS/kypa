@@ -4,7 +4,7 @@ import { Modal, Button, Container, Input, Divider, TextArea, Form} from 'semanti
 class ShortcutEntry extends Component{
   render(){
     return(
-        <Modal open={false} closeIcon>
+        <Modal open={this.props.open} onClose={this.props.onClose} closeIcon>
             <Modal.Header>Add New Shortcut</Modal.Header>
             <Modal.Content>
               <Modal.Description>

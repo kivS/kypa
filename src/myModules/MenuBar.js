@@ -6,7 +6,7 @@ class MenuBar extends Component{
     return(
         <Menu fixed="top" inverted borderless widths="3">
          <Menu.Item>
-           <Button icon="add" primary circular content="Add new"/>
+           <Button icon="add" onClick={this.props.addNew} primary circular content="Add new"/>
          </Menu.Item>
 
          <Menu.Item>
@@ -14,7 +14,7 @@ class MenuBar extends Component{
          </Menu.Item>
 
          <Menu.Item position="right">
-           <Button icon="trash outline" circular negative content="Remove all"/>
+           <Button icon="trash outline" onClick={this.props.removeAll} circular negative content="Remove all"/>
          </Menu.Item>
         </Menu>
       )
