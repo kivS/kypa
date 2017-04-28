@@ -100,13 +100,18 @@ function start() {
   });
 
 
-  // Set dev envs and load mainWindow
+  // DEV environment
   if(process.env.DEV){
+
+    // add react dev tools
+     BrowserWindow.addDevToolsExtension(`${process.env.HOME}/.config/google-chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/2.0.12_0`);
 
      mainWindow.loadURL('http://localhost:3000'); 
 
       // load DevTools
      mainWindow.webContents.openDevTools();
+
+
 
   }else{
     mainWindow.loadURL(`file://${__dirname}/build/index.html`);

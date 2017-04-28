@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon, Button, Grid, Container, Input, Divider, TextArea, Form, Table} from 'semantic-ui-react'
+import { Header, Icon, Button, Grid, Container, Input, Divider, TextArea, Form, Table} from 'semantic-ui-react'
 import './App.css';
 
 const {ipcRenderer} = window.require('electron');
@@ -7,6 +7,17 @@ const {ipcRenderer} = window.require('electron');
 
 class App extends Component {
   render() {
+    const table_body = Array(5).fill(null).map(() => {
+      return(
+          <Table.Row>
+            <Table.Cell content="potato 1" />
+            <Table.Cell content="potato 1" />
+            <Table.Cell content="potato 1" />
+            <Table.Cell><Button icon='delete'  circular /></Table.Cell>
+          </Table.Row>
+        )
+    });
+    
     return (
       <Grid className="main_container">
 
@@ -32,6 +43,9 @@ class App extends Component {
             <Container>
               <Table  padded celled striped>
                 <Table.Header>
+                  <Table.HeaderCell colSpan="4">
+                       <Header as='h3' textAlign='center'>Shortcut List</Header>
+                  </Table.HeaderCell>
                   <Table.Row>
                     <Table.HeaderCell collapsing >Time Added</Table.HeaderCell>
                     <Table.HeaderCell>Shortcut</Table.HeaderCell>
@@ -41,21 +55,7 @@ class App extends Component {
                 </Table.Header>
 
                 <Table.Body>
-
-                  <Table.Row>
-                    <Table.Cell content="potato 1" />
-                    <Table.Cell content="potato 1" />
-                    <Table.Cell content="potato 1" />
-                    <Table.Cell><Button icon='delete'  circular /></Table.Cell>
-                  </Table.Row>
-
-                  <Table.Row>
-                     <Table.Cell content="potato 2" />
-                     <Table.Cell content="potato 2" />
-                     <Table.Cell content="potato 2" />
-                     <Table.Cell><Button icon='delete' circular /></Table.Cell>
-                  </Table.Row>
-
+                  {table_body}
                 </Table.Body>
                 
                 <Table.Footer>
