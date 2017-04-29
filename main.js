@@ -15,6 +15,7 @@ const path = require('path');
 
 // define db's path
 const db_location = path.join(app.getPath('userData'), 'db.json');
+console.log(`DB location: ${db_location}`);
 // start persistent db with location
 const db  = require('./resources/helpers/db')(db_location);
 

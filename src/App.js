@@ -13,7 +13,14 @@ class App extends Component {
     super();
 
     this.state = {
-      is_shortcutEntry_open: false
+      is_shortcutEntry_open: true,
+      shortcutEntry_default_key: null,
+      shortcutEntry_default_data: null,
+      shortcutEntry_key_error: null,
+      shortcutEntry_data_error: null,
+      
+      shortcut_list: Array(3).fill(null),
+      
     }
   }
 
@@ -25,11 +32,19 @@ class App extends Component {
             
             <MenuBar addNew={this.openShortcutEntry} removeAll={this.removeAllShortcuts} />
 
-            <ShortcutEntry open={this.state.is_shortcutEntry_open} onClose={this.closeShortcutEntry} />
+            <ShortcutEntry 
+                  defaultShortcutKey={this.state.shortcutEntry_default_key} 
+                  defaultShortcutData={this.state.shortcutEntry_default_data}
+                  onKeyError={this.state.shortcutEntry_key_error}
+                  onDataError={this.state.shortcutEntry_data_error} 
+                  saveShortcut={this.saveShortcut} 
+                  open={this.state.is_shortcutEntry_open} 
+                  onClose={this.closeShortcutEntry} 
+            />
 
             <Divider hidden section />
             
-            <ShortcutList />
+            <ShortcutList list={this.state.shortcut_list} removeShortcut={this.removeShortcut} />
   
           </Grid.Column>
         </Grid.Row>
@@ -48,6 +63,38 @@ class App extends Component {
 
   removeAllShortcuts = () => {
     confirm("Really Bro?");
+  }
+
+  removeShortcut = (id) =>{
+    console.log(`Shortcut with id: ${id} asks to be removed...`);
+  }
+
+  saveShortcut = (shortcut, data) =>{ 
+    console.log(`Data to be saved: shortcut:${shortcut} | Data:${data}`);
+
+    // check if shortcut or data is not empty
+    if(shortcut === "" || shortcut === null) this.setState({shortcutEntry_key_error: 'Shortcut cannot be empty..'});
+
+    if(data === "" || data === null) return this.setState({shortcutEntry_data_error: 'Data cannot be empty..'});
+    else this.setState({shortcutEntry_data_error: null});
+
+
+    // Register shortcut
+    const register_shortcut = ipcRenderer.sendSync('register_shortcut', shortcut, data);
+
+    if(!register_shortcut.success){
+      this.setState({shortcutEntry_key_error: register_shortcut.msg});
+      return;
+
+    }else{
+      // on success let's close and clean stuff up
+      console.log("success");
+      this.closeShortcutEntry();
+    }
+
+
+    console.log('Result: ', register_shortcut);
+
   }
 
 }
