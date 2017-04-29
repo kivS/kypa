@@ -147,6 +147,7 @@ function start() {
 
     } catch (e) {
       console.error('hell shit..', e);
+      console.log('shortcut: ', shortcut, 'text: ', text);
       // send error response back
       e_shortcut.returnValue = {success: false, msg: 'Invalid shortcut!'};
 

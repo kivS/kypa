@@ -16,6 +16,8 @@ class App extends Component {
       is_shortcutEntry_open: true,
       shortcutEntry_default_key: null,
       shortcutEntry_default_data: null,
+      shortcutEntry_key_value: null,
+      shortcutEntry_data_value: null,
       shortcutEntry_key_error: null,
       shortcutEntry_data_error: null,
       
@@ -35,6 +37,8 @@ class App extends Component {
             <ShortcutEntry 
                   defaultShortcutKey={this.state.shortcutEntry_default_key} 
                   defaultShortcutData={this.state.shortcutEntry_default_data}
+                  onShortcutKeyChange={this.onShortcutKeyChange}
+                  onShortcutDataChange={this.onShortcutDataChange}
                   onKeyError={this.state.shortcutEntry_key_error}
                   onDataError={this.state.shortcutEntry_data_error} 
                   saveShortcut={this.saveShortcut} 
@@ -54,11 +58,23 @@ class App extends Component {
 
 
   // Helper Functions
-
+  
   openShortcutEntry = () => this.setState({is_shortcutEntry_open: true });
 
+  onShortcutKeyChange = (e, data) =>  this.setState({shortcutEntry_key_value: data.value});
+
+  onShortcutDataChange = (e, data) => this.setState({shortcutEntry_data_value: data.value});
+
   closeShortcutEntry = () =>{
-    this.setState({is_shortcutEntry_open: false});
+    this.setState({
+      shortcutEntry_default_key: null,
+      shortcutEntry_default_data: null,
+      shortcutEntry_key_value: null,
+      shortcutEntry_data_value: null,
+      shortcutEntry_key_error: null,
+      shortcutEntry_data_error: null,
+      is_shortcutEntry_open: false
+    });
   }
 
   removeAllShortcuts = () => {
@@ -69,14 +85,29 @@ class App extends Component {
     console.log(`Shortcut with id: ${id} asks to be removed...`);
   }
 
-  saveShortcut = (shortcut, data) =>{ 
+  saveShortcut = () =>{ 
+
+    const shortcut = this.state.shortcutEntry_key_value;
+    const data = this.state.shortcutEntry_data_value;
+
     console.log(`Data to be saved: shortcut:${shortcut} | Data:${data}`);
 
     // check if shortcut or data is not empty
-    if(shortcut === "" || shortcut === null) this.setState({shortcutEntry_key_error: 'Shortcut cannot be empty..'});
+    if(shortcut === "" || shortcut === null){
+      this.setState({shortcutEntry_key_error: 'Shortcut cannot be empty..'});
+      return;
 
-    if(data === "" || data === null) return this.setState({shortcutEntry_data_error: 'Data cannot be empty..'});
-    else this.setState({shortcutEntry_data_error: null});
+    }else{
+      this.setState({shortcutEntry_key_error: null});
+    }
+
+    if(data === "" || data === null){
+      this.setState({shortcutEntry_data_error: 'Data cannot be empty..'});
+      return;
+
+    }else{ 
+      this.setState({shortcutEntry_data_error: null});
+    }
 
 
     // Register shortcut

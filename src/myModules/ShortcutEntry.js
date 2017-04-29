@@ -2,21 +2,12 @@ import React, { Component } from 'react';
 import { Modal, Button, Container, Input, Divider, TextArea, Form, Label} from 'semantic-ui-react';
 
 class ShortcutEntry extends Component{
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-        shortcut_key: this.props.defaultShortcutKey,
-        shortcut_data: this.props.defaultShortcutData
-    }  
-
-  }
-
   render(){
 
     // Error msgs for inputs
     const onKeyError = (this.props.onKeyError)? <Label basic color='red' pointing>{this.props.onKeyError}</Label>:null;
     const onDataError = (this.props.onDataError)? <Label basic color='red' pointing>{this.props.onDataError}</Label>:null;
+
 
     return(
         <Modal open={this.props.open} onClose={this.props.onClose} closeIcon>
@@ -24,7 +15,7 @@ class ShortcutEntry extends Component{
             <Modal.Content>
               <Modal.Description>
                 <Container textAlign="center">
-                  <Input size="big" defaultValue={this.props.defaultShortcutKey} onChange={this.onShortcutKeyChange} placeholder="Add key conbination" />
+                  <Input size="big" defaultValue={this.props.defaultShortcutKey} onChange={this.props.onShortcutKeyChange} placeholder="Add key combination" />
                   <br/>
                   {onKeyError}
                   <Divider hidden/>
@@ -33,7 +24,7 @@ class ShortcutEntry extends Component{
                         autoHeight 
                         placeholder="Enter Text to be saved" 
                         defaultValue={this.props.defaultShortcutData} 
-                        onChange={this.onShortcutDataChange}  
+                        onChange={this.props.onShortcutDataChange}  
                     />
                     {onDataError}
                   </Form>
@@ -41,7 +32,7 @@ class ShortcutEntry extends Component{
                   <Button 
                       loading={false}
                       icon="save"
-                      onClick={() => this.props.saveShortcut(this.state.shortcut_key, this.state.shortcut_data)} 
+                      onClick={this.props.saveShortcut} 
                       content="Save"
                   />
                 </Container>
@@ -51,13 +42,6 @@ class ShortcutEntry extends Component{
       )
   }
 
-  // Helper functions
-
-  onShortcutKeyChange = (e, data) => {
-    this.setState({shortcut_key: data.value});
-  }
-
-  onShortcutDataChange = (e, data) => this.setState({shortcut_data: data.value});
 }
 
 
