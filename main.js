@@ -182,6 +182,25 @@ function start() {
      e.returnValue = db.get('bindings').value();
   });
 
+  ipcMain.on('delete_shortcut', (e, id) =>{
+    
+    // get the shortcut
+    const shortcut = db.get('bindings').find({id: id}).get('shortcut').value();
+    
+    // unregister shortcut
+    globalShortcut.unregister(shortcut);
+    
+    // delete it
+    db.get('bindings').remove({id: id}).write();
+
+  });
+
+  ipcMain.on('delete_all_shortcut', (e) =>{
+    db.set('bindings', []).write();
+    globalShortcut.unregisterAll();
+
+  });
+
 }
 
 

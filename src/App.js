@@ -84,11 +84,16 @@ class App extends Component {
   }
 
   removeAllShortcuts = () => {
-    confirm("Really Bro?");
+    if(confirm("You're about to delete all shortcuts. Continue?")){
+      ipcRenderer.send('delete_all_shortcut');
+      this.getShortcuts();
+    }
   }
 
   removeShortcut = (id) =>{
     console.log(`Shortcut with id: ${id} asks to be removed...`);
+    ipcRenderer.send('delete_shortcut', id);
+    this.getShortcuts();
   }
 
   saveShortcut = () =>{ 
@@ -126,6 +131,7 @@ class App extends Component {
     }else{
       // on success let's close and clean stuff up
       console.log("success");
+      this.getShortcuts();
       this.closeShortcutEntry();
     }
 
