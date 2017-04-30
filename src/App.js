@@ -13,7 +13,7 @@ class App extends Component {
     super();
 
     this.state = {
-      is_shortcutEntry_open: true,
+      is_shortcutEntry_open: false,
       shortcutEntry_default_key: null,
       shortcutEntry_default_data: null,
       shortcutEntry_key_value: null,
@@ -21,9 +21,15 @@ class App extends Component {
       shortcutEntry_key_error: null,
       shortcutEntry_data_error: null,
       
-      shortcut_list: Array(3).fill(null),
+      shortcut_list: null
       
     }
+  }
+
+  componentWillMount(){
+
+    // load shortcut list data
+    this.getShortcuts();
   }
 
   render() {    
@@ -125,6 +131,13 @@ class App extends Component {
 
 
     console.log('Result: ', register_shortcut);
+
+  }
+
+  getShortcuts = () =>{
+    const shortcutList = ipcRenderer.sendSync('get_shortcuts');
+
+    this.setState({shortcut_list: shortcutList});
 
   }
 

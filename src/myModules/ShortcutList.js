@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { Header, Button, Container, Table} from 'semantic-ui-react'
+import { Header, Button, Container, Table, Label} from 'semantic-ui-react'
 
 class ShortcutList extends Component{
   render(){
     const table_body = this.props.list.map((data, index) => {
       return(
-          <Table.Row key={index}>
-            <Table.Cell content="potato 1" />
-            <Table.Cell content="potato 1 " />
-            <Table.Cell content="potato 1" />
-            <Table.Cell><Button icon='delete'  circular onClick={() => this.props.removeShortcut(index)} /></Table.Cell>
+          <Table.Row key={data.id}>
+            <Table.Cell content={data.time_added} />
+            <Table.Cell>
+              <Label content={data.shortcut} />
+            </Table.Cell>
+            <Table.Cell content={data.text} />
+            <Table.Cell><Button icon='delete'  circular onClick={() => this.props.removeShortcut(data.id)} /></Table.Cell>
           </Table.Row>
         )
     });

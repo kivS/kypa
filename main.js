@@ -10,7 +10,7 @@ if(shouldQuit) app.exit();
 const {Tray, Menu, BrowserWindow, globalShortcut, ipcMain, clipboard } = require('electron');
 const robot = require('robotjs');
 const path = require('path');
-
+const uuid = require('uuid');
 
 
 // define db's path
@@ -133,10 +133,10 @@ function start() {
 
 
   /**
-   *  Main & Redender processes communication
+   *  Redenderer communication
    */
 
-  // Listen for commands from shortcuts_page
+  
   ipcMain.on('register_shortcut', (e_shortcut, shortcut, text) =>{
 
     let addGlobalShortcut_result = null;
@@ -161,6 +161,7 @@ function start() {
 
       // save to db
       const save_shorcut = db.get('bindings').push({
+        "id": uuid(),
         "time_added": (new Date().getTime() / 1000),
         "shortcut": shortcut,
         "text": text,
@@ -175,6 +176,10 @@ function start() {
 
     }
 
+  });
+
+  ipcMain.on('get_shortcuts', (e) =>{
+     e.returnValue = db.get('bindings').value();
   });
 
 }
