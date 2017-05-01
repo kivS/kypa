@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Button, Container, Table, Label} from 'semantic-ui-react'
+import { Header, Button, Container, Table, Label, Divider,Popup} from 'semantic-ui-react'
 
 class ShortcutList extends Component{
   render(){
@@ -28,7 +28,11 @@ class ShortcutList extends Component{
               <Label content={data.shortcut} />
             </Table.Cell>
             <Table.Cell content={data.text} />
-            <Table.Cell><Button icon='delete'  circular onClick={() => this.props.removeShortcut(data.id)} /></Table.Cell>
+            <Table.Cell>
+              <Popup trigger={<Button icon='edit'  circular onClick={() => this.props.updateShortcut(data)} />} content="Edit shortcut" />
+              <Divider />
+              <Popup trigger={<Button icon='remove'  circular onClick={() => this.props.removeShortcut(data.id)} />} content="Remove shortcut" />
+            </Table.Cell>
           </Table.Row>
         )
     });

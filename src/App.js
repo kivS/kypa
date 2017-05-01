@@ -20,6 +20,7 @@ class App extends Component {
       shortcutEntry_data_value: null,
       shortcutEntry_key_error: null,
       shortcutEntry_data_error: null,
+      shortcutEntry_update_for_id: null,
       
       shortcut_list: null,
 
@@ -63,7 +64,12 @@ class App extends Component {
 
             <Divider hidden section />
             
-            <ShortcutList list={this.state.shortcut_list} searchValue={this.state.search_value} removeShortcut={this.removeShortcut} />
+            <ShortcutList 
+              list={this.state.shortcut_list} 
+              searchValue={this.state.search_value} 
+              updateShortcut={this.updateShortcut} 
+              removeShortcut={this.removeShortcut} 
+            />
   
           </Grid.Column>
         </Grid.Row>
@@ -82,13 +88,14 @@ class App extends Component {
 
   closeShortcutEntry = () =>{
     this.setState({
+      is_shortcutEntry_open: false,
       shortcutEntry_default_key: null,
       shortcutEntry_default_data: null,
       shortcutEntry_key_value: null,
       shortcutEntry_data_value: null,
       shortcutEntry_key_error: null,
       shortcutEntry_data_error: null,
-      is_shortcutEntry_open: false
+      shortcutEntry_update_for_id: null
     });
   }
 
@@ -99,16 +106,31 @@ class App extends Component {
     }
   }
 
+  updateShortcut = (data) =>{
+    console.log('Update shortcut: ', data.id);
+    this.setState({
+      shortcutEntry_default_key: data.shortcut,
+      shortcutEntry_default_data: data.text,
+      shortcutEntry_update_for_id: data.id,
+      is_shortcutEntry_open: true
+    });
+  }
+
   removeShortcut = (id) =>{
     console.log(`Shortcut with id: ${id} asks to be removed...`);
     ipcRenderer.send('delete_shortcut', id);
     this.getShortcuts();
   }
 
-  saveShortcut = () =>{ 
+  saveShortcut = () =>{
 
-    const shortcut = this.state.shortcutEntry_key_value;
-    const data = this.state.shortcutEntry_data_value;
+    // if shortcut is to be updated lets remove it first
+    const update_for_id = this.state.shortcutEntry_update_for_id;
+    if(update_for_id) this.removeShortcut(update_for_id);
+
+    // get shortcut and data or default 
+    const shortcut = this.state.shortcutEntry_key_value || this.state.shortcutEntry_default_key;
+    const data = this.state.shortcutEntry_data_value || this.state.shortcutEntry_default_data;
 
     console.log(`Data to be saved: shortcut:${shortcut} | Data:${data}`);
 
