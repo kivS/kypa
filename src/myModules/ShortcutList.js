@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Header, Button, Container, Table, Label, Divider,Popup} from 'semantic-ui-react'
-const moment = require('moment');
+import moment from 'moment';
 
 class ShortcutList extends Component{
   render(){
