@@ -10,11 +10,12 @@ if(shouldQuit) app.exit();
 const {Tray, Menu, BrowserWindow, globalShortcut, ipcMain, clipboard } = require('electron');
 const robot = require('robotjs');
 const path = require('path');
-
+const uuid = require('uuid');
 
 
 // define db's path
 const db_location = path.join(app.getPath('userData'), 'db.json');
+console.log(`DB location: ${db_location}`);
 // start persistent db with location
 const db  = require('./resources/helpers/db')(db_location);
 
@@ -93,20 +94,40 @@ function start() {
 
   // Create mainWindow
   mainWindow = new BrowserWindow({
-    width:            600,
-    height:           600,
+    width:            985,
+    minWidth:         775,
+    height:           570,
+    minHeight:        320,
     show:             false,
 
   });
 
-  // load mainWindow
-  mainWindow.loadURL(`file://${__dirname}/shortcuts_page.html`);
 
-  // load DevTools
-  mainWindow.webContents.openDevTools();
+  // DEV environment
+  if(process.env.DEV){
+
+    // add react dev tools
+     BrowserWindow.addDevToolsExtension(`${process.env.HOME}/.config/google-chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/2.0.12_0`);
+
+     mainWindow.loadURL('http://localhost:3000'); 
+
+      // load DevTools
+     mainWindow.webContents.openDevTools();
+
+
+
+  }else{
+    mainWindow.loadURL(`file://${__dirname}/build/index.html`);
+  } 
+
+
+ 
 
   // mainWindow Events
   mainWindow.on('close', (e) =>{
+    // make app close if in dev mode
+    if(process.env.DEV) return 1;
+
     e.preventDefault();
     mainWindow.hide();
   })
@@ -114,10 +135,10 @@ function start() {
 
 
   /**
-   *  Main & Redender processes communication
+   *  Redenderer communication
    */
 
-  // Listen for commands from shortcuts_page
+  
   ipcMain.on('register_shortcut', (e_shortcut, shortcut, text) =>{
 
     let addGlobalShortcut_result = null;
@@ -127,7 +148,8 @@ function start() {
       addGlobalShortcut_result = addGlobalShortcut(shortcut, text);
 
     } catch (e) {
-      console.error('hell shit..', e);
+      console.error('Error adding shortcut', e);
+      console.log('shortcut: ', shortcut, 'text: ', text);
       // send error response back
       e_shortcut.returnValue = {success: false, msg: 'Invalid shortcut!'};
 
@@ -141,7 +163,8 @@ function start() {
 
       // save to db
       const save_shorcut = db.get('bindings').push({
-        "time_added": (new Date().getTime() / 1000),
+        "id": uuid(),
+        "time_added": (new Date().getTime()),
         "shortcut": shortcut,
         "text": text,
         "type": "text"
@@ -154,6 +177,29 @@ function start() {
       e_shortcut.returnValue = {success: false, msg: 'Shortcut not allowed. Already in use!'};
 
     }
+
+  });
+
+  ipcMain.on('get_shortcuts', (e) =>{
+     e.returnValue = db.get('bindings').value();
+  });
+
+  ipcMain.on('delete_shortcut', (e, id) =>{
+    
+    // get the shortcut
+    const shortcut = db.get('bindings').find({id: id}).get('shortcut').value();
+    
+    // unregister shortcut
+    globalShortcut.unregister(shortcut);
+    
+    // delete it
+    db.get('bindings').remove({id: id}).write();
+
+  });
+
+  ipcMain.on('delete_all_shortcut', (e) =>{
+    db.set('bindings', []).write();
+    globalShortcut.unregisterAll();
 
   });
 
