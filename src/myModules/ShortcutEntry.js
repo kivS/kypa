@@ -58,7 +58,7 @@ class ShortcutEntry extends Component{
                       onClick={this.props.saveShortcut} 
                       content="Save"
                   />
-                  <Modal closeOnDimmerClick closeIcon dimmer trigger={<Button icon="info" content='Show Supported keys'/>}>
+                  <Modal closeOnDimmerClick closeIcon dimmer trigger={<Button icon="info" basic content='Show Supported keys'/>}>
                       <Modal.Header> Supported keys:</Modal.Header>
                       <Modal.Content>
                         <Modal.Description>

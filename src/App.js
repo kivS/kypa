@@ -13,7 +13,7 @@ class App extends Component {
     super();
 
     this.state = {
-      is_shortcutEntry_open: true,
+      is_shortcutEntry_open: false,
       shortcutEntry_default_key: null,
       shortcutEntry_default_data: null,
       shortcutEntry_key_value: null,
@@ -183,7 +183,7 @@ class App extends Component {
 
     const searchValue = data.value;
 
-    if(searchValue.length > 1){
+    if(searchValue.length > 0){
       this.setState({search_value: searchValue});
 
     }else{
