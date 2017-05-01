@@ -96,7 +96,7 @@ function start() {
   mainWindow = new BrowserWindow({
     width:            775,
     minWidth:         775,
-    height:           320,
+    height:           370,
     minHeight:        320,
     show:             false,
 

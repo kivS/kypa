@@ -15,7 +15,7 @@ class ShortcutEntry extends Component{
             <Modal.Content>
               <Modal.Description>
                 <Container textAlign="center">
-                  <Input size="big" defaultValue={this.props.defaultShortcutKey} onChange={this.props.onShortcutKeyChange} placeholder="Add key combination" />
+                  <Input  size="big" defaultValue={this.props.defaultShortcutKey} onChange={this.props.onShortcutKeyChange} placeholder="Add key combination" />
                   <br/>
                   {onKeyError}
                   <Divider hidden/>

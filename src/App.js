@@ -21,8 +21,11 @@ class App extends Component {
       shortcutEntry_key_error: null,
       shortcutEntry_data_error: null,
       
-      shortcut_list: null
-      
+      shortcut_list: null,
+
+      search_loading: false,
+      search_value : null
+
     }
   }
 
@@ -38,7 +41,7 @@ class App extends Component {
         <Grid.Row>
           <Grid.Column>
             
-            <MenuBar addNew={this.openShortcutEntry} removeAll={this.removeAllShortcuts} />
+            <MenuBar addNew={this.openShortcutEntry} removeAll={this.removeAllShortcuts} searchLoading={this.state.search_loading} onSearch={this.onSearch} />
 
             <ShortcutEntry 
                   defaultShortcutKey={this.state.shortcutEntry_default_key} 
@@ -54,7 +57,7 @@ class App extends Component {
 
             <Divider hidden section />
             
-            <ShortcutList list={this.state.shortcut_list} removeShortcut={this.removeShortcut} />
+            <ShortcutList list={this.state.shortcut_list} searchValue={this.state.search_value} removeShortcut={this.removeShortcut} />
   
           </Grid.Column>
         </Grid.Row>
@@ -145,6 +148,21 @@ class App extends Component {
 
     this.setState({shortcut_list: shortcutList});
 
+  }
+
+  onSearch = (e, data) =>{
+    this.setState({search_loading: true});
+
+    const searchValue = data.value;
+
+    if(searchValue.length > 1){
+      this.setState({search_value: searchValue});
+
+    }else{
+      this.setState({search_value: null});
+    }
+
+    console.log('search data: ', data);
   }
 
 }

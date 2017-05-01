@@ -3,7 +3,24 @@ import { Header, Button, Container, Table, Label} from 'semantic-ui-react'
 
 class ShortcutList extends Component{
   render(){
-    const table_body = this.props.list.map((data, index) => {
+
+    const searchValue = this.props.searchValue;
+    let data_list;
+
+    // if search value exists lets filter the list
+    if(searchValue){
+
+      data_list = this.props.list.filter((data) =>{
+        // filter items that match shortcut or text
+        return data.text.includes(searchValue) || data.shortcut.includes(searchValue);
+
+      });
+
+    }else{
+      data_list = this.props.list;
+    }
+
+    const table_body = data_list.map((data, index) => {
       return(
           <Table.Row key={data.id}>
             <Table.Cell content={data.time_added} />
