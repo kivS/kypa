@@ -13,7 +13,7 @@ class App extends Component {
     super();
 
     this.state = {
-      is_shortcutEntry_open: false,
+      is_shortcutEntry_open: true,
       shortcutEntry_default_key: null,
       shortcutEntry_default_data: null,
       shortcutEntry_key_value: null,
