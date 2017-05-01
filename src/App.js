@@ -41,7 +41,13 @@ class App extends Component {
         <Grid.Row>
           <Grid.Column>
             
-            <MenuBar addNew={this.openShortcutEntry} removeAll={this.removeAllShortcuts} searchLoading={this.state.search_loading} onSearch={this.onSearch} />
+            <MenuBar 
+              addNew={this.openShortcutEntry} 
+              removeAll={this.removeAllShortcuts} 
+              searchLoading={this.state.search_loading} 
+              onSearch={this.onSearch} 
+              onSearchStop={this.onSearchStop}
+            />
 
             <ShortcutEntry 
                   defaultShortcutKey={this.state.shortcutEntry_default_key} 
@@ -162,7 +168,11 @@ class App extends Component {
       this.setState({search_value: null});
     }
 
-    console.log('search data: ', data);
+    //console.log('search data: ', data);
+  }
+
+  onSearchStop = () =>{
+    this.setState({search_loading: false});
   }
 
 }

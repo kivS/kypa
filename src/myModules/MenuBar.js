@@ -10,7 +10,7 @@ class MenuBar extends Component{
          </Menu.Item>
 
          <Menu.Item>
-            <Input icon='search' placeholder='Search...' loading={this.props.searchLoading} onChange={this.props.onSearch} />
+            <Input icon='search' onBlur={this.props.onSearchStop} placeholder='Search...' loading={this.props.searchLoading} onChange={this.props.onSearch} />
          </Menu.Item>
 
          <Menu.Item position="right">
