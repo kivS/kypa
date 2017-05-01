@@ -148,7 +148,7 @@ function start() {
       addGlobalShortcut_result = addGlobalShortcut(shortcut, text);
 
     } catch (e) {
-      console.error('hell shit..', e);
+      console.error('Error adding shortcut', e);
       console.log('shortcut: ', shortcut, 'text: ', text);
       // send error response back
       e_shortcut.returnValue = {success: false, msg: 'Invalid shortcut!'};
