@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Header, Button, Container, Table, Label, Divider,Popup} from 'semantic-ui-react'
+const moment = require('moment');
 
 class ShortcutList extends Component{
   render(){
@@ -23,7 +24,7 @@ class ShortcutList extends Component{
     const table_body = data_list.map((data, index) => {
       return(
           <Table.Row key={data.id}>
-            <Table.Cell content={data.time_added} />
+            <Table.Cell content={moment(data.time_added).format("DD/MM/Y - H:m")} />
             <Table.Cell>
               <Label content={data.shortcut} />
             </Table.Cell>

@@ -164,7 +164,7 @@ function start() {
       // save to db
       const save_shorcut = db.get('bindings').push({
         "id": uuid(),
-        "time_added": (new Date().getTime() / 1000),
+        "time_added": (new Date().getTime()),
         "shortcut": shortcut,
         "text": text,
         "type": "text"
