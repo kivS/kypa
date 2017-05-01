@@ -15,7 +15,7 @@ class ShortcutEntry extends Component{
               <Modal.Description>
                 <Container textAlign="center">
                   <Popup
-                    trigger={<Input size="big" defaultValue={this.props.defaultShortcutKey} onChange={this.props.onShortcutKeyChange} placeholder="Add key combination"/>}
+                    trigger={<Input size="big" autoFocus defaultValue={this.props.defaultShortcutKey} onChange={this.props.onShortcutKeyChange} placeholder="Add key combination"/>}
                     on='focus'
                     wide
                     position='right center'
