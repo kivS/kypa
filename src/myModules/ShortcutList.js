@@ -21,10 +21,12 @@ class ShortcutList extends Component{
       data_list = this.props.list;
     }
 
+
+
     const table_body = data_list.map((data, index) => {
       return(
           <Table.Row key={data.id}>
-            <Table.Cell content={moment(data.time_added).format("DD/MM/Y - H:m")} />
+            <Table.Cell content={moment(data.time_added).format("LLL")} />
             <Table.Cell>
               <Label content={data.shortcut} />
             </Table.Cell>
