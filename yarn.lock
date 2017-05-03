@@ -1683,7 +1683,7 @@ debug@2.6.1:
   dependencies:
     ms "0.7.2"
 
-debug@2.6.3, debug@^2.1.0, debug@^2.1.1, debug@^2.1.3, debug@^2.2.0, debug@^2.4.5, debug@^2.5.1, debug@^2.6.0, debug@^2.6.1, debug@^2.6.3:
+debug@2.6.3, debug@^2.4.5, debug@^2.6.3:
   version "2.6.3"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.3.tgz#0f7eb8c30965ec08c72accfa0130c8b79984141d"
   dependencies:
@@ -1692,6 +1692,12 @@ debug@2.6.3, debug@^2.1.0, debug@^2.1.1, debug@^2.1.3, debug@^2.2.0, debug@^2.4.
 debug@2.6.4:
   version "2.6.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.4.tgz#7586a9b3c39741c0282ae33445c4e8ac74734fe0"
+  dependencies:
+    ms "0.7.3"
+
+debug@2.6.6, debug@^2.1.0, debug@^2.1.1, debug@^2.1.3, debug@^2.2.0, debug@^2.5.1, debug@^2.6.0, debug@^2.6.1:
+  version "2.6.6"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.6.tgz#a9fa6fbe9ca43cf1e79f73b75c0189cbb7d6db5a"
   dependencies:
     ms "0.7.3"
 
@@ -1858,6 +1864,13 @@ electron-builder-http@16.6.0, electron-builder-http@~16.6.0:
     debug "2.6.3"
     fs-extra-p "^4.1.0"
 
+electron-builder-http@~17.2.0:
+  version "17.2.0"
+  resolved "https://registry.yarnpkg.com/electron-builder-http/-/electron-builder-http-17.2.0.tgz#c3705c786937997e940d202381bd3458b500ac22"
+  dependencies:
+    debug "2.6.6"
+    fs-extra-p "^4.1.0"
+
 electron-builder-util@16.6.0, electron-builder-util@~16.6.0:
   version "16.6.0"
   resolved "https://registry.yarnpkg.com/electron-builder-util/-/electron-builder-util-16.6.0.tgz#9a555c6e4e785e406a807abfd88aa1369665ac7d"
@@ -1935,6 +1948,14 @@ electron-download@^3.0.1:
     semver "^5.3.0"
     sumchecker "^1.2.0"
 
+electron-is-dev@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/electron-is-dev/-/electron-is-dev-0.1.2.tgz#8a1043e32b3a1da1c3f553dce28ce764246167e3"
+
+electron-log@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/electron-log/-/electron-log-2.2.4.tgz#1c613b8919895f4a89c0450547b488502b089b93"
+
 electron-osx-sign@0.4.4:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/electron-osx-sign/-/electron-osx-sign-0.4.4.tgz#afdf38450ccaebe6dabeca71fb0fad6294a8c57c"
@@ -1978,6 +1999,19 @@ electron-rebuild@^1.5.7:
 electron-to-chromium@^1.1.0, electron-to-chromium@^1.2.7:
   version "1.3.8"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.8.tgz#b2c8a2c79bb89fbbfd3724d9555e15095b5f5fb6"
+
+electron-updater@^1.14.3:
+  version "1.14.3"
+  resolved "https://registry.yarnpkg.com/electron-updater/-/electron-updater-1.14.3.tgz#459704f9d2bbef7b15e3cac7adc02ada908d54ca"
+  dependencies:
+    bluebird-lst "^1.0.2"
+    electron-builder-http "~17.2.0"
+    electron-is-dev "^0.1.2"
+    fs-extra-p "^4.1.0"
+    js-yaml "^3.8.3"
+    semver "^5.3.0"
+    source-map-support "^0.4.15"
+    xelement "^1.0.14"
 
 electron@^1.6.2:
   version "1.6.2"
@@ -5476,9 +5510,9 @@ source-list-map@^0.1.4, source-list-map@~0.1.7:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-0.1.8.tgz#c550b2ab5427f6b3f21f5afead88c4f5587b2106"
 
-source-map-support@^0.4.14, source-map-support@^0.4.2:
-  version "0.4.14"
-  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.14.tgz#9d4463772598b86271b4f523f6c1f4e02a7d6aef"
+source-map-support@^0.4.14, source-map-support@^0.4.15, source-map-support@^0.4.2:
+  version "0.4.15"
+  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.15.tgz#03202df65c06d2bd8c7ec2362a193056fef8d3b1"
   dependencies:
     source-map "^0.5.6"
 
@@ -6317,6 +6351,12 @@ write@^0.2.1:
 xdg-basedir@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/xdg-basedir/-/xdg-basedir-3.0.0.tgz#496b2cc109eca8dbacfe2dc72b603c17c5870ad4"
+
+xelement@^1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/xelement/-/xelement-1.0.14.tgz#46eb00ea6f5e4db9c18d6f05bcd08dc9ebeff8c0"
+  dependencies:
+    sax "^1.2.1"
 
 xml-char-classes@^1.0.0:
   version "1.0.0"

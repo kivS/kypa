@@ -7,11 +7,16 @@ const shouldQuit = app.makeSingleInstance(() =>{
 })
 if(shouldQuit) app.exit();
 
-const {Tray, Menu, BrowserWindow, globalShortcut, ipcMain, clipboard } = require('electron');
+const {Tray, Menu, BrowserWindow, globalShortcut, ipcMain, clipboard, dialog } = require('electron');
 const robot = require('robotjs');
 const path = require('path');
 const uuid = require('uuid');
+const autoUpdater = require('electron-updater').autoUpdater;
+const log = require('electron-log');
 
+// autoUpdater config
+autoUpdater.logger = log;
+autoUpdater.logger.transports.file.level = "info"
 
 // define db's path
 const db_location = path.join(app.getPath('userData'), 'db.json');
@@ -40,12 +45,38 @@ app.on('will-quit', () =>{
 });
 
 
+////*****************************************************
+//         autoUpdater events
+//
+//*****************************************************
+
+autoUpdater.on('update-downloaded', (ev, info) => {
+
+  const title = 'Kypa - New Update';
+  const msg = 'Update available. Update now?';
+  const btns = ['ok', 'later'];
+
+
+  sendMsgToUser('info', title, msg, btns, index =>{
+    // if ok let's update app!
+    if(index == '0') autoUpdater.quitAndInstall();
+  });
+
+});
+
+autoUpdater.on('error', err =>{
+  log.error('Error while updating: ',err);
+});
+
 
 /**
  *  Program start Up
  */
 function start() {
   console.log("Start up!");
+
+  // Check for updates
+  autoUpdater.checkForUpdates();
 
   // load key bindings from db and start them
   new Promise((resolve, reject) =>{
@@ -237,4 +268,26 @@ function addGlobalShortcut(shortcut, text){
       }, 265);
 
     });
+}
+
+
+/**
+ * Send message dialog to user
+ * @param  {[string]} type -> info, error ,etc..
+ * @param  {[string]} title -> title
+ * @param  {[string]} msg -> message
+ * @param  {[string]} btns -> array of butttons : ["ok" , "zz"]
+ * @return {[type]}     [description]
+ */
+function sendMsgToUser(type,title, msg, btns,  cb){
+  dialog.showMessageBox({
+    "type": type ,
+    "title": title,
+    "message": msg,
+    "buttons": btns
+
+  }, index =>{
+
+    cb(index);
+  })
 }
