@@ -50,6 +50,7 @@
     "wait-on": "^2.0.2"
   },
   "dependencies": {
+    "auto-launch": "^5.0.1",
     "electron-log": "^2.2.4",
     "electron-updater": "^1.14.3",
     "lowdb": "^0.16.2",

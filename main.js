@@ -13,6 +13,17 @@ const path = require('path');
 const uuid = require('uuid');
 const autoUpdater = require('electron-updater').autoUpdater;
 const log = require('electron-log');
+const autoLaunch = require('auto-launch');
+
+
+// config auto launch
+const auto_launch = new autoLaunch({
+  name: app.getName()
+
+}).enable();
+
+
+
 
 // autoUpdater config
 autoUpdater.logger = log;
