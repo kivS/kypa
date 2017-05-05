@@ -103,7 +103,7 @@ function start() {
   });
 
   // Set Tray icon
-  trayIcon = new Tray(`${__dirname}/resources/images/icon.png`);
+  trayIcon = new Tray(`${__dirname}/resources/images/32x32.png`);
   trayIcon.setToolTip('Kypa');
 
   // create menu

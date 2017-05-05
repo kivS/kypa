@@ -10,7 +10,15 @@
   "build": {
     "npmSkipBuildFromSource": true,
     "appId": "com.vikborges.kypa",
-    "win": {},
+    "win": {
+      "icon":"resources/images/icon.ico"
+    },
+    "linux": {
+      "icon":"resources/images/"
+    },
+    "mac":{
+      "icon":"resources/images/icon.icns"
+    },
     "directories": {
       "buildResources": "public"
     },
@@ -28,6 +36,7 @@
     "electron": "DEV=true electron .",
     "rebuild": "electron-rebuild --runtime=electron --target=1.1.3 --disturl=https://atom.io/download/atom-shell --abi=48",
     "pack": "yarn run r-build && DEV=true build --dir --win --linux && yarn run fix-header",
+    "build": "build -wl && yarn run fix-header",
     "publish": "build -wl -p always  && yarn run fix-header",
     "postinstall": "install-app-deps",
     "fix-header": "npm rebuild && yarn run rebuild",
