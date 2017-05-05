@@ -1,7 +1,7 @@
 {
   "name": "kypa",
   "productName": "Kypa",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Map key shorcuts to characters, images and more",
   "main": "main.js",
   "repository": "https://github.com/kivS/kypa.git",
