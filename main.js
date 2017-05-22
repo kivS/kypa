@@ -137,7 +137,7 @@ function start() {
   // Create mainWindow
   mainWindow = new BrowserWindow({
     width:            985,
-    minWidth:         775,
+    minWidth:         850,
     height:           570,
     minHeight:        320,
     show:             false,
@@ -149,7 +149,7 @@ function start() {
   if(process.env.DEV){
 
     // add react dev tools
-     BrowserWindow.addDevToolsExtension(`${process.env.HOME}/.config/google-chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/2.0.12_0`);
+     //BrowserWindow.addDevToolsExtension(`${process.env.HOME}/.config/google-chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/2.0.12_0`);
 
      mainWindow.loadURL('http://localhost:3000'); 
 
